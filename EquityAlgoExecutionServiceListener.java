@@ -1,7 +1,7 @@
 
 /**
  * EquityAlgoExecutionServiceListener get notification from EquityMarketDataService 
- * and notify the EquityAlgoExecutionServiceListener with the data it obtains
+ * and notify the EquityAlgoExecutionService with the data it obtains
  * @author Wenting Yang, Sara Liu
  *
  */
