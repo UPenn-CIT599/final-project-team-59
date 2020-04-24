@@ -6,37 +6,29 @@
  * @param <T>
  */
 public class ExecutionOrder<T> {
-	private T product;
-	private PricingSide side;
-	private String orderId;
-	private OrderType orderType;
+	//private T product;
+	private PricingSide side;// bid/offer
+	private String ticker;
+	private OrderType orderType; 
 	private double price;
-	private long visibleQuantity;
-	private long hiddenQuantity;
-	private String parentOrderId;
-	private Boolean isChildOrder;
+	private long quantity;
+	
 	
 	
 	/**
 	 * constructor
 	 */
-	public ExecutionOrder(T product,PricingSide side,String orderId,
-						OrderType orderType, double price, long visibleQtty,
-						long hiddenQtty,String parentOrder, Boolean isChild) {
-		this.product = product;
+	public ExecutionOrder(PricingSide side,String ticker,
+						OrderType orderType, double price, long quantity) {
+		
 		this.side = side;
-		this.orderId = orderId;
+		this.ticker = ticker;
 		this.orderType = orderType;
 		this.price = price;
-		this.visibleQuantity = visibleQtty;
-		this.hiddenQuantity = hiddenQtty;
-		this.parentOrderId= parentOrder;
-		this.isChildOrder = isChild;
+		this.quantity = quantity;
 	}
 	
-	public void setProduct(T product) {
-		this.product = product;
-	}
+
 	
 	public void setSide (PricingSide side) {
 		this.side = side;
@@ -50,32 +42,19 @@ public class ExecutionOrder<T> {
 		this.price = price;
 	}
 	
-	public void setVisibleQuantity (long visibleQtty) {
-		this.visibleQuantity = visibleQtty;
+	public void setQuantity (long quantity) {
+		this.quantity = quantity;
 	}
 	
-	public void setHiddenQuantity(long hiddenQtty) {
-		this.hiddenQuantity = hiddenQtty;
-	}
 	
-	public void setParentOrderId(String parentOrderId) {
-		this.parentOrderId = parentOrderId;
-	}
-	
-	public void setIsChild(Boolean isChildOrder) {
-		this.isChildOrder = isChildOrder;
-	}
 
-	public T getProduct() {
-		return product;
-	}
 
 	public PricingSide getSide() {
 		return side;
 	}
 
-	public String getOrderId() {
-		return orderId;
+	public String getTicker() {
+		return ticker;
 	}
 
 	public OrderType getOrderType() {
@@ -86,20 +65,8 @@ public class ExecutionOrder<T> {
 		return price;
 	}
 
-	public long getVisibleQuantity() {
-		return visibleQuantity;
-	}
-
-	public long getHiddenQuantity() {
-		return hiddenQuantity;
-	}
-
-	public String getParentOrderId() {
-		return parentOrderId;
-	}
-
-	public Boolean getIsChildOrder() {
-		return isChildOrder;
+	public long getQuantity() {
+		return quantity;
 	}
 	
 	

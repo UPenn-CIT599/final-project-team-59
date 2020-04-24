@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.PriorityQueue;
 
 /**
  * OrderBook class stores the product info and bid order stack and offer order stack
@@ -7,8 +10,8 @@ import java.util.ArrayList;
  */
 public class OrderBook<T> {
 	private T product;
-	private ArrayList<Order> bidStack = new ArrayList<Order>();
-	private ArrayList<Order> offerStack = new ArrayList<Order>();
+	private PriorityQueue<Order> bidStack = new PriorityQueue<Order>();
+	private PriorityQueue<Order> offerStack = new PriorityQueue<Order>(Collections.reverseOrder());
 	
 	/**
 	 * constructor
@@ -16,7 +19,7 @@ public class OrderBook<T> {
 	 * @param bidStack
 	 * @param offerStack
 	 */
-	public OrderBook(T product, ArrayList<Order> bidStack, ArrayList<Order> offerStack) {
+	public OrderBook(T product, PriorityQueue<Order> bidStack, PriorityQueue<Order> offerStack) {
 		this.product = product;
 		this.bidStack = bidStack;
 		this.offerStack = offerStack;
@@ -33,7 +36,7 @@ public class OrderBook<T> {
 	 * getter of bid order stack
 	 * @return
 	 */
-	public ArrayList<Order> getBidStack(){
+	public PriorityQueue<Order> getBidStack(){
 		return bidStack;
 	}
 	
@@ -42,7 +45,7 @@ public class OrderBook<T> {
 	 * getter of offer order stack
 	 * @return
 	 */
-	public ArrayList<Order> getOfferStack(){
+	public PriorityQueue<Order> getOfferStack(){
 		return offerStack;
 	}
 	
@@ -58,7 +61,7 @@ public class OrderBook<T> {
 	 * setter of bid side stack
 	 * @param bidStack
 	 */
-	public void setBidStack(ArrayList<Order> bidStack) {
+	public void setBidStack(PriorityQueue<Order> bidStack) {
 		this.bidStack = bidStack;
 	}
 	
@@ -66,7 +69,7 @@ public class OrderBook<T> {
 	 * setter of offer side stack
 	 * @param offerStack
 	 */
-	public void setOfferStack(ArrayList<Order> offerStack) {
+	public void setOfferStack(PriorityQueue<Order> offerStack) {
 		this.offerStack = offerStack;
 	}
 	

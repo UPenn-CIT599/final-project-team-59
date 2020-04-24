@@ -46,8 +46,8 @@ public class EquityMarketDataService extends Service<String,OrderBook<Equity>>{
 	//TODO: write the unit test for getBestBidOffer function
 	BidOffer getBestBidOffer(String ticker) {
 		OrderBook<Equity> tickerOrderBook = orderBookMap.get(ticker);
-		Order bestBid = tickerOrderBook.getBidStack().get(0);
-		Order bestOffer = tickerOrderBook.getOfferStack().get(0);
+		Order bestBid = tickerOrderBook.getBidStack().poll();
+		Order bestOffer = tickerOrderBook.getOfferStack().poll();
 		BidOffer bestBidOffer = new BidOffer(bestBid,bestOffer);
 		return bestBidOffer;
 	}

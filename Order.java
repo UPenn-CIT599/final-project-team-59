@@ -4,7 +4,7 @@
  *
  */
 
-public class Order {
+public class Order implements Comparable{
 	
 
 	private double price;
@@ -68,6 +68,17 @@ public class Order {
 	
 	public void setSide(PricingSide side) {
 		this.side = side;
+	}
+	
+
+
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		Order otherOrder = (Order) o;
+		if (otherOrder.price==price) return 0;
+		
+		return (int)Math.round(otherOrder.price-price);
 	}
 	
 }
