@@ -32,38 +32,39 @@ public class EquityAlgoExecutionService extends Service<String,ExecutionOrder<Eq
 	public void processOrder(OrderBook<Equity> data) {
 		/*//*********process OrderBook<Equity> data and generate ExecutionOrder<Equity>********/
 		while(!data.getOfferStack().isEmpty()&&!data.getBidStack().isEmpty()) {
-		double execute_price = 0.0;
-		long min_quantity = 0;
-		//calculate price for ExecuteOrder
-		if(data.getOfferStack().peek().getPrice()==data.getBidStack().peek().getPrice()) {
-			execute_price = data.getBidStack().peek().getPrice();
-		}
-		else {
-			execute_price = (data.getBidStack().peek().getPrice()+data.getOfferStack().peek().getPrice())/2;
-		}
-		//update quantities of BidOrder and OfferOrder
-		if(data.getBidStack().peek().getQuantity()<data.getOfferStack().peek().getQuantity()) {
-			min_quantity = data.getBidStack().poll().getQuantity();
-			data.getOfferStack().peek().setQuantity(data.getOfferStack().peek().getQuantity()-min_quantity);
-		}
-		else if(data.getOfferStack().peek().getQuantity()<data.getBidStack().peek().getQuantity()) {
-			min_quantity = data.getOfferStack().poll().getQuantity();
-			data.getBidStack().peek().setQuantity(data.getBidStack().peek().getQuantity()-min_quantity);
-		}
-		else {
-			min_quantity = data.getOfferStack().peek().getQuantity();
-			data.getOfferStack().poll();
-			data.getBidStack().poll();
-		}
-		//decide PriceSide
-		PricingSide curr_side = PricingSide.values()[new Random().nextInt(PricingSide.values().length)];
-		//decide OrderType
-        OrderType curr_ordertype = OrderType.values()[new Random().nextInt(OrderType.values().length)];
-        //create ExecutionOrder
-		ExecutionOrder EO = new ExecutionOrder(curr_side, data.getProduct().getTicker(),curr_ordertype, execute_price, min_quantity);
-		//add ExecutionOrder to executionOrderMap
-		String ticker = data.getProduct().getTicker();
-		executionOrderMap.put(ticker,EO);
+			double execute_price = 0.0;
+			long min_quantity = 0;
+			//calculate price for ExecuteOrder
+			if(data.getOfferStack().peek().getPrice()==data.getBidStack().peek().getPrice()) {
+				execute_price = data.getBidStack().peek().getPrice();
+			}
+			else {
+				execute_price = Math.round((data.getBidStack().peek().getPrice()+data.getOfferStack().peek().getPrice())/2*100.0)/100.0;
+			}
+			//update quantities of BidOrder and OfferOrder
+			if(data.getBidStack().peek().getQuantity()<data.getOfferStack().peek().getQuantity()) {
+				min_quantity = data.getBidStack().poll().getQuantity();
+				data.getOfferStack().peek().setQuantity(data.getOfferStack().peek().getQuantity()-min_quantity);
+			}
+			else if(data.getOfferStack().peek().getQuantity()<data.getBidStack().peek().getQuantity()) {
+				min_quantity = data.getOfferStack().poll().getQuantity();
+				data.getBidStack().peek().setQuantity(data.getBidStack().peek().getQuantity()-min_quantity);
+			}
+			else {
+				min_quantity = data.getOfferStack().peek().getQuantity();
+				data.getOfferStack().poll();
+				data.getBidStack().poll();
+			}
+			//decide PriceSide
+			PricingSide curr_side = PricingSide.values()[new Random().nextInt(PricingSide.values().length)];
+			//decide OrderType
+	        OrderType curr_ordertype = OrderType.values()[new Random().nextInt(OrderType.values().length)];
+	        //create ExecutionOrder
+			ExecutionOrder<Equity> EO = new ExecutionOrder<Equity>(data.getProduct(),curr_side, data.getProduct().getTicker(),curr_ordertype, execute_price, min_quantity);
+			//add ExecutionOrder to executionOrderMap
+			String ticker = data.getProduct().getTicker();
+			executionOrderMap.put(ticker,EO);
+			onMessage(EO);
 		}
 	}
 		
@@ -71,13 +72,13 @@ public class EquityAlgoExecutionService extends Service<String,ExecutionOrder<Eq
 	
 	@Override
 	public ExecutionOrder<Equity> getData(String key) {
-		// TODO Auto-generated method stub
+		
 		return executionOrderMap.get(key);
 	}
 
 	@Override
 	void onMessage(ExecutionOrder<Equity> executeOrder) {
-		// TODO Auto-generated method stub
+		
 		for(ServiceListener<ExecutionOrder<Equity>> listener:listeners) {
 			listener.processAdd(executeOrder);
 		}
@@ -85,13 +86,13 @@ public class EquityAlgoExecutionService extends Service<String,ExecutionOrder<Eq
 
 	@Override
 	void addListener(ServiceListener<ExecutionOrder<Equity>> listener) {
-		// TODO Auto-generated method stub
+		
 		listeners.add(listener);
 	}
 
 	@Override
 	ArrayList<ServiceListener<ExecutionOrder<Equity>>> getListeners() {
-		// TODO Auto-generated method stub
+		
 		return listeners;
 	}
 

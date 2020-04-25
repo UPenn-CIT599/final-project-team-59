@@ -6,7 +6,7 @@
  * @param <T>
  */
 public class ExecutionOrder<T> {
-	//private T product;
+	private T product;
 	private PricingSide side;// bid/offer
 	private String ticker;
 	private OrderType orderType; 
@@ -18,9 +18,9 @@ public class ExecutionOrder<T> {
 	/**
 	 * constructor
 	 */
-	public ExecutionOrder(PricingSide side,String ticker,
+	public ExecutionOrder(T product,PricingSide side,String ticker,
 						OrderType orderType, double price, long quantity) {
-		
+		this.product = product;
 		this.side = side;
 		this.ticker = ticker;
 		this.orderType = orderType;
@@ -30,6 +30,24 @@ public class ExecutionOrder<T> {
 	
 
 	
+	public T getProduct() {
+		return product;
+	}
+
+
+
+	public void setProduct(T product) {
+		this.product = product;
+	}
+
+
+
+	public void setTicker(String ticker) {
+		this.ticker = ticker;
+	}
+
+
+
 	public void setSide (PricingSide side) {
 		this.side = side;
 	}

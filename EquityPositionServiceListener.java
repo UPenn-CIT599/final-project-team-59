@@ -7,7 +7,7 @@ public class EquityPositionServiceListener extends ServiceListener<Trade<Equity>
 	private EquityPositionService EPService;
 	private static EquityPositionServiceListener instance = null;
 	
-	private EquityPositionServiceListener() {}
+	private EquityPositionServiceListener() {EPService = EquityPositionService.getInstance();}
 	/**
 	 * singleton - public getInstance method
 	 * @return

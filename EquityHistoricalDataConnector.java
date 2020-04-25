@@ -10,7 +10,7 @@ import java.io.PrintWriter;
  * @author Wenting Yang, Sara Liu
  *
  */
-public class EquityHistoricalDataConnector extends Connector<Risk<Equity>> {
+public class EquityHistoricalDataConnector extends Connector<PnL<Equity>> {
 	
 	private static EquityHistoricalDataConnector instance = null;
 	private EquityHistoricalDataConnector() {}
@@ -30,7 +30,7 @@ public class EquityHistoricalDataConnector extends Connector<Risk<Equity>> {
 	 * publish data to output file
 	 */
 	@Override
-	public void Publish(Risk<Equity> data) {
+	public void Publish(PnL<Equity> data) {
 		// TODO Auto-generated method stub
 		try {
 			File fname = new File("output.csv");       	
@@ -39,14 +39,9 @@ public class EquityHistoricalDataConnector extends Connector<Risk<Equity>> {
         		FileWriter csvWriter = new FileWriter(fname);
 			    csvWriter.append("ticker");
 			    csvWriter.append(",");
-			    csvWriter.append("beta");
-			    csvWriter.append(",");
-			    csvWriter.append("volatility");
-			    csvWriter.append(",");
-			    csvWriter.append("quantity");
-			    csvWriter.append("ticker");
+			    csvWriter.append("PnL");
 			    csvWriter.append("\n");
-			    String[] values = new String[] {data.getTicker().toString(), Double.toString(data.getBeta()),Double.toString(data.getVolatility()),String.valueOf(data.getQuantity())};
+			    String[] values = new String[] {data.getProduct().getTicker().toString(), Double.toString(data.getPnl())};
 		        csvWriter.append(String.join(",", values));
 		        csvWriter.append("\n");	
 		        csvWriter.close();
@@ -54,7 +49,7 @@ public class EquityHistoricalDataConnector extends Connector<Risk<Equity>> {
         	else {
         		FileWriter csvWriter = new FileWriter(fname,true);
         		BufferedWriter bfWriter = new BufferedWriter(csvWriter);
-        		String[] values = new String[] {data.getTicker().toString(), Double.toString(data.getBeta()),Double.toString(data.getVolatility()),String.valueOf(data.getQuantity())};
+        		String[] values = new String[] {data.getProduct().getTicker().toString(), Double.toString(data.getPnl())};
 		        bfWriter.append(String.join(",", values));
 		        bfWriter.append("\n");
 		        bfWriter.close();

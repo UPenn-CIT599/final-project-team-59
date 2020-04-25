@@ -6,8 +6,8 @@ import java.util.HashMap;
  * @author Wenting Yang, Sara Liu
  *
  */
-public class EquityHistoricalDataService extends Service<String,Risk<Equity>> {
-	HashMap<String,Risk<Equity>> riskMap;
+public class EquityHistoricalDataService extends Service<String,PnL<Equity>> {
+	HashMap<String,PnL<Equity>> riskMap;
 	EquityHistoricalDataConnector EHDConnector;
 	private static EquityHistoricalDataService instance = null;
 	
@@ -32,30 +32,30 @@ public class EquityHistoricalDataService extends Service<String,Risk<Equity>> {
 	 * persist data and call EquityHistoricalDataConnector publish() method
 	 * @param data
 	 */
-	public void persistData(Risk<Equity> data) {
+	public void persistData(PnL<Equity> data) {
 		
 	}
 
 	
 	
 	@Override
-	public Risk<Equity> getData(String key) {
+	public PnL<Equity> getData(String key) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	// register to publish-only connector, no onMessage implementation
-	void onMessage(Risk<Equity> data) {}
+	void onMessage(PnL<Equity> data) {}
 
 	@Override
-	void addListener(ServiceListener<Risk<Equity>> listener) {
+	void addListener(ServiceListener<PnL<Equity>> listener) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	ArrayList<ServiceListener<Risk<Equity>>> getListeners() {
+	ArrayList<ServiceListener<PnL<Equity>>> getListeners() {
 		// TODO Auto-generated method stub
 		return null;
 	}

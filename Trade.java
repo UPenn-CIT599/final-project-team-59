@@ -7,6 +7,17 @@ public class Trade<T> {
 	private long quantity;
 	private TradeSide side;
 	
+	
+	
+	public Trade(T product, String tradeId, double price, String book, long quantity, TradeSide side) {
+		super();
+		this.product = product;
+		this.tradeId = tradeId;
+		this.price = price;
+		this.book = book;
+		this.quantity = quantity;
+		this.side = side;
+	}
 	public T getProduct() {
 		return product;
 	}

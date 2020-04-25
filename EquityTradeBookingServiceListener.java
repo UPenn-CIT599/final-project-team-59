@@ -4,7 +4,7 @@ public class EquityTradeBookingServiceListener extends ServiceListener<Execution
 	private static EquityTradeBookingServiceListener instance = null;
 	
 	//constructor
-	private EquityTradeBookingServiceListener() {}
+	private EquityTradeBookingServiceListener() {ETBService = EquityTradeBookingService.getInstance();}
 	
 	/**
 	 * singleton - public getInstance method
@@ -19,19 +19,19 @@ public class EquityTradeBookingServiceListener extends ServiceListener<Execution
 	
 	@Override
 	void processAdd(ExecutionOrder<Equity> data) {
-		// TODO Auto-generated method stub
+		
 		ETBService.bookTrades(data);
 	}
 
 	@Override
 	void processRemove(ExecutionOrder<Equity> data) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	void processUpdate(ExecutionOrder<Equity> data) {
-		// TODO Auto-generated method stub
+		ETBService.bookTrades(data);
 		
 	}
 

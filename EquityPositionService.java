@@ -27,7 +27,21 @@ public class EquityPositionService extends Service<String,Position<Equity>>{
 	 * @param data
 	 */
 	public void addTrade(Trade<Equity> data) {
-		
+		Equity currEquity = data.getProduct();
+		if(positionMap.get(data.getBook())!=null) {
+			Position<Equity> currPosition = positionMap.get(data.getBook());
+			int side = data.getSide()==TradeSide.Buy?1:-1;
+			currPosition.upDatePosition(data.getBook(), data.getQuantity()*side);
+			positionMap.put(data.getBook(),currPosition);
+		}
+		else {
+			Position<Equity> currPosition = new Position<Equity>();
+			currPosition.setProduct(currEquity);
+			HashMap<String,Long> pMap = new HashMap<String,Long>();
+			int side = data.getSide()==TradeSide.Buy?1:-1;
+			pMap.put(data.getBook(),data.getQuantity()*side);
+			currPosition.setPositions(pMap);
+		}
 	}
 
 	@Override

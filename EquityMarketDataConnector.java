@@ -79,7 +79,7 @@ public class EquityMarketDataConnector extends Connector<OrderBook<Equity>>{
 				EMDService.onMessage(orderBooks.get(ticker));
 			}
 			
-			
+			reader.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
