@@ -23,7 +23,7 @@ public class generateMarketDataInput {
 			pw.println("AMZN,498000000,0.00");
 			pw.println("ZM,111800000,0.00");
 			
-			for(int i = 0; i<60; i++) { //30000
+			for(int i = 0; i<10; i++) { //30000
 				int company = ran.nextInt(3);
 					
 				String output = new String();

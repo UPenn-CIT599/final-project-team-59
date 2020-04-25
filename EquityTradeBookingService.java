@@ -40,10 +40,10 @@ public class EquityTradeBookingService extends Service<String,Trade<Equity>>{
 		Long currTradeId = tradeIds.get(ind);
 		String ticker = data.getTicker();
 		String currBook = new String();
-		if (ticker == "APPL") {
+		if (ticker.equals("APPL")) {
 			currBook = bookList[0];
 		}
-		else if (ticker == "ZM") {
+		else if (ticker.equals("ZM")) {
 			currBook = bookList[1];
 		}
 		else {
@@ -51,6 +51,7 @@ public class EquityTradeBookingService extends Service<String,Trade<Equity>>{
 		}
 		Trade<Equity> currTrade = new Trade<Equity>(data.getProduct(),Long.toString(currTradeId),
 				data.getPrice(),currBook,data.getQuantity(),TradeSide.values()[data.getSide().ordinal()]);
+		ind++;
 		onMessage(currTrade);
 	}
 

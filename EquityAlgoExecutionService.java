@@ -61,9 +61,7 @@ public class EquityAlgoExecutionService extends Service<String,ExecutionOrder<Eq
 	        OrderType curr_ordertype = OrderType.values()[new Random().nextInt(OrderType.values().length)];
 	        //create ExecutionOrder
 			ExecutionOrder<Equity> EO = new ExecutionOrder<Equity>(data.getProduct(),curr_side, data.getProduct().getTicker(),curr_ordertype, execute_price, min_quantity);
-			//add ExecutionOrder to executionOrderMap
-			String ticker = data.getProduct().getTicker();
-			executionOrderMap.put(ticker,EO);
+		
 			onMessage(EO);
 		}
 	}

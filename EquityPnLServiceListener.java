@@ -3,7 +3,7 @@ public class EquityPnLServiceListener extends ServiceListener<Trade<Equity>> {
 	private EquityPnLService ERService;
 	private static EquityPnLServiceListener instance = null;
 	
-	private EquityPnLServiceListener() {}
+	private EquityPnLServiceListener() {ERService = EquityPnLService.getInstance();}
 	/**
 	 * singleton - public getInstance method
 	 * @return

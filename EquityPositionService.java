@@ -41,6 +41,7 @@ public class EquityPositionService extends Service<String,Position<Equity>>{
 			int side = data.getSide()==TradeSide.Buy?1:-1;
 			pMap.put(data.getBook(),data.getQuantity()*side);
 			currPosition.setPositions(pMap);
+			positionMap.put(data.getBook(),currPosition);
 		}
 	}
 

@@ -1,7 +1,7 @@
 
 public class TradingSystemRunner {
 	public void buildSystem() {
-		EquityMarketDataConnector EMDConnector = EquityMarketDataConnector.getInstance();
+		//EquityMarketDataConnector EMDConnector = EquityMarketDataConnector.getInstance();
 		EquityMarketDataService EMDService = EquityMarketDataService.getInstance();
 		EquityAlgoExecutionServiceListener EAEListener = EquityAlgoExecutionServiceListener.getInstance();
 		EMDService.addListener(EAEListener);
@@ -11,14 +11,14 @@ public class TradingSystemRunner {
 		EquityTradeBookingService ETBService = EquityTradeBookingService.getInstance();
 		EquityPositionServiceListener EPListener = EquityPositionServiceListener.getInstance();
 		ETBService.addListener(EPListener);
-		EquityPositionService EPService = EquityPositionService.getInstance();
+		//EquityPositionService EPService = EquityPositionService.getInstance();
 		EquityPnLServiceListener EPLListener = EquityPnLServiceListener.getInstance();
-		EPService.addListener(EPLListener);
+		ETBService.addListener(EPLListener);
 		EquityPnLService EPLService = EquityPnLService.getInstance();
 		EquityHistoricalDataServiceListener EHDListener = EquityHistoricalDataServiceListener.getInstance();
 		EPLService.addListener(EHDListener);
-		EquityHistoricalDataService EHDService = EquityHistoricalDataService.getInstance();
-		EquityHistoricalDataConnector EHDConnector = EquityHistoricalDataConnector.getInstance();
+		//EquityHistoricalDataService EHDService = EquityHistoricalDataService.getInstance();
+		//EquityHistoricalDataConnector EHDConnector = EquityHistoricalDataConnector.getInstance();
     }
 	
 	public void main(String[]args) {

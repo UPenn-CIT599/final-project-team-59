@@ -28,12 +28,21 @@ public class EquityPnLService extends Service<String,PnL<Equity>>{
 	 */
 	public void calcPnL(Trade<Equity> data) {
 		if(pnlMap.get(data.getBook())!=null) {
-			PnL<Equity> currPnl = pnlMap.get(data.getBook());
-			currPnl.updatePnl(data.getQuantity(), data.getSide(), data.getPrice());
-			onMessage(currPnl);
+			pnlMap.get(data.getBook()).updatePnl(data.getQuantity(), data.getSide(), data.getPrice());
+			
+			onMessage(pnlMap.get(data.getBook()));
 		}
 		else {
-			//TODO: 
+			String currBook = data.getBook();
+			Equity currEquity = data.getProduct();
+			PnL<Equity> currPnl = new PnL<Equity>();
+			currPnl.setPnl(0.0);
+			currPnl.setProduct(currEquity);
+			currPnl.setBook(currBook);
+			currPnl.updatePnl(data.getQuantity(),data.getSide(),data.getPrice());
+			pnlMap.put(currBook, currPnl);
+			onMessage(pnlMap.get(data.getBook()));
+			
 		}
 	}
 
@@ -54,7 +63,7 @@ public class EquityPnLService extends Service<String,PnL<Equity>>{
 
 	@Override
 	void addListener(ServiceListener<PnL<Equity>> listener) {
-		// TODO Auto-generated method stub
+		listeners.add(listener);
 		
 	}
 

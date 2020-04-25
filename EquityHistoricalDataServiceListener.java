@@ -1,12 +1,12 @@
 
 public class EquityHistoricalDataServiceListener extends ServiceListener<PnL<Equity>> {
-	private EquityHistoricalDataService EHDService;
+	private EquityHistoricalDataConnector EHDConnector;
 	private static EquityHistoricalDataServiceListener instance = null;
 	
 	/**
 	 * singleton - private constructor
 	 */
-	private EquityHistoricalDataServiceListener() {EHDService = EquityHistoricalDataService.getInstance();}
+	private EquityHistoricalDataServiceListener() {EHDConnector = EquityHistoricalDataConnector.getInstance();}
 	
 	/**
 	 * singleton - public getInstance method
@@ -25,7 +25,7 @@ public class EquityHistoricalDataServiceListener extends ServiceListener<PnL<Equ
 	@Override
 	void processAdd(PnL<Equity> data) {
 		
-		EHDService.persistData(data);		
+		EHDConnector.Publish(data);		
 	}
 
 	@Override
@@ -33,6 +33,6 @@ public class EquityHistoricalDataServiceListener extends ServiceListener<PnL<Equ
 
 	@Override
 	void processUpdate(PnL<Equity> data) {
-		EHDService.persistData(data);	
+		EHDConnector.Publish(data);		
 	}
 }

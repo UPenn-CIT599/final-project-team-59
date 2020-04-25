@@ -37,11 +37,13 @@ public class EquityHistoricalDataConnector extends Connector<PnL<Equity>> {
         	if(!fname.exists()) {
         		fname.createNewFile();
         		FileWriter csvWriter = new FileWriter(fname);
-			    csvWriter.append("ticker");
+			    csvWriter.append("Book");
+			    csvWriter.append(",");
+			    csvWriter.append("Ticker");
 			    csvWriter.append(",");
 			    csvWriter.append("PnL");
 			    csvWriter.append("\n");
-			    String[] values = new String[] {data.getProduct().getTicker().toString(), Double.toString(data.getPnl())};
+			    String[] values = new String[] {data.getBook(),data.getProduct().getTicker().toString(), Double.toString(Math.round((data.getPnl()*100.0))/100.0)};
 		        csvWriter.append(String.join(",", values));
 		        csvWriter.append("\n");	
 		        csvWriter.close();
@@ -49,7 +51,7 @@ public class EquityHistoricalDataConnector extends Connector<PnL<Equity>> {
         	else {
         		FileWriter csvWriter = new FileWriter(fname,true);
         		BufferedWriter bfWriter = new BufferedWriter(csvWriter);
-        		String[] values = new String[] {data.getProduct().getTicker().toString(), Double.toString(data.getPnl())};
+        		String[] values = new String[] {data.getBook(),data.getProduct().getTicker().toString(), Double.toString(Math.round((data.getPnl()*100.0))/100.0)};
 		        bfWriter.append(String.join(",", values));
 		        bfWriter.append("\n");
 		        bfWriter.close();

@@ -33,7 +33,7 @@ public class EquityHistoricalDataService extends Service<String,PnL<Equity>> {
 	 * @param data
 	 */
 	public void persistData(PnL<Equity> data) {
-		
+		//TODO: 
 	}
 
 	
