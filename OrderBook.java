@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.PriorityQueue;
 
 /**
@@ -73,6 +74,47 @@ public class OrderBook<T> {
 		this.offerStack = offerStack;
 	}
 	
-
+	/**
+	 * Add BidOrder to the bid Stack
+	 * @param bidOrder
+	 */
+	public void addBidOrder(Order bidOrder) {
+		this.bidStack.add(bidOrder);
+	}
+	
+	/**
+	 * Add offerOrder to the offer stack
+	 * @param offerOrder
+	 */
+	public void addOfferOrder(Order offerOrder) {
+		this.offerStack.add(offerOrder);
+	}
+	
+	/**
+	 * print orderBook 5 depths
+	 */
+	public void printOrderBook() {
+		Iterator<Order> bidIter = bidStack.iterator();
+		Iterator<Order> offerIter = offerStack.iterator();
+		int cnt = 0;
+		String bidOutputStr = new String();
+		String offerOutputStr = new String();
+		while (cnt<5) {
+			if(bidIter.hasNext()) {
+				Order currBidOrder = bidIter.next();
+				bidOutputStr = bidOutputStr+"("+currBidOrder.getPrice()+
+						","+currBidOrder.getQuantity()+")\n";
+			}
+			if(offerIter.hasNext()) {
+				Order currOfferOrder = offerIter.next();
+				offerOutputStr = offerOutputStr + "(" + currOfferOrder.getPrice()+
+						","+currOfferOrder.getQuantity()+")\n";
+			}
+			cnt++;
+		}
+		
+		System.out.println("5 depths in bid stack:" + bidOutputStr);
+		System.out.println("5 depths in offer stack:"+offerOutputStr);
+	}
 
 }

@@ -1,7 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.PriorityQueue;
 import java.util.Scanner;
+import java.util.stream.Collector;
 
 /**
  * EquityMarketDataConnector
@@ -13,6 +18,8 @@ import java.util.Scanner;
 //TODO	
 public class EquityMarketDataConnector extends Connector<OrderBook<Equity>>{
 	private EquityMarketDataService EMDService;
+	private HashMap<String,OrderBook<Equity>> orderBooks = new HashMap<String,OrderBook<Equity>>();
+	
 	private static EquityMarketDataConnector instance = null;
 	private EquityMarketDataConnector() {EMDService = EquityMarketDataService.getInstance();}
 	
@@ -33,34 +40,45 @@ public class EquityMarketDataConnector extends Connector<OrderBook<Equity>>{
 		
 		try {
 			Scanner reader = new Scanner(inputFile);
-			ArrayList<Order> currBidStack = new ArrayList<Order>();
-			ArrayList<Order> currOfferStack = new ArrayList<Order>();
+			
 			String ticker = new String();
 			long totShare = 0;
 			double divYield = 0.0;
-			String[] orderInfo = reader.nextLine().split(",");
-			ticker = orderInfo[0];
-			totShare = Long.valueOf(orderInfo[1]);
-			divYield = Double.valueOf(orderInfo[2]);
-			Equity currEquity = new Equity(ticker,totShare,divYield);
-			//System.out.println(currEquity.getTicker()+";"+currEquity.getTotalShares());
-			while(reader.hasNextLine()) {
-				orderInfo = reader.nextLine().split(",");
-				double currBidPrice = Double.valueOf(orderInfo[0]);
-				double currOfferPrice = Double.valueOf(orderInfo[2]);
-				long currBidSize = Long.valueOf(orderInfo[1]);
-				long currOfferSize = Long.valueOf(orderInfo[3]);
-				//System.out.println(currBidPrice +"; "+currBidSize);
-				currBidStack.add(new Order(currBidPrice,currBidSize,PricingSide.BID));
-				currOfferStack.add(new Order(currOfferPrice,currOfferSize,PricingSide.OFFER));
-				
+			HashMap<String,Equity> equityMap = new HashMap<String,Equity>();
+			for (int i = 0; i<3; i++) {
+				String[] orderInfo = reader.nextLine().split(",");
+				ticker = orderInfo[0];
+				totShare = Long.valueOf(orderInfo[1]);
+				divYield = Double.valueOf(orderInfo[2]);
+				Equity currEquity = new Equity(ticker,totShare,divYield);
+				equityMap.put(ticker, currEquity);
+				PriorityQueue<Order> bidStack = new PriorityQueue<Order>();
+				PriorityQueue<Order> offerStack = new PriorityQueue<Order>(Collections.reverseOrder());
+				OrderBook<Equity> orderBook = new OrderBook<Equity>(currEquity,bidStack,offerStack);
+				orderBooks.put(ticker, orderBook);
 			}
-			//ticker = orderInfo[0];
-			//System.out.println(currOfferStack.get(0).getQuantity());
 			
-			OrderBook<Equity> currOrderBook = new OrderBook<Equity>(currEquity,currBidStack,currOfferStack);
-			//System.out.println(ticker);
-			EMDService.onMessage(currOrderBook);
+			
+			while(reader.hasNextLine()) {
+				String[] orderInfo = reader.nextLine().split(",");
+				ticker = orderInfo[0];
+				double price = Double.valueOf(orderInfo[1]);
+				long size = Long.valueOf(orderInfo[2]);
+				PricingSide side = Integer.valueOf(orderInfo[3]) == 1?PricingSide.BID:PricingSide.OFFER;
+				Order currOrder = new Order(price,size,side);
+				
+				if(side == PricingSide.BID) {
+					orderBooks.get(ticker).addBidOrder(currOrder);
+					
+					
+				}
+				else {
+					orderBooks.get(ticker).addOfferOrder(currOrder);
+				}
+				
+				EMDService.onMessage(orderBooks.get(ticker));
+			}
+			
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

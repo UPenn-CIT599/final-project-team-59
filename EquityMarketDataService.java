@@ -82,7 +82,8 @@ public class EquityMarketDataService extends Service<String,OrderBook<Equity>>{
 		String ticker = orderBook.getProduct().getTicker();
 		//System.out.println(ticker);
 		orderBookMap.put(ticker,orderBook);
-		
+		//Test: print orderBook
+		orderBookMap.get(ticker).printOrderBook();
 		//System.out.println(orderBook.getOfferStack().get(0).getPrice());
 		for(ServiceListener<OrderBook<Equity>> listener:listeners) {
 			listener.processAdd(orderBook);
