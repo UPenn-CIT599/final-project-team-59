@@ -31,24 +31,27 @@ public class EquityPositionService extends Service<String,Position<Equity>>{
 		if(positionMap.get(data.getBook())!=null) {
 			Position<Equity> currPosition = positionMap.get(data.getBook());
 			int side = data.getSide()==TradeSide.Buy?1:-1;
-			currPosition.upDatePosition(data.getBook(), data.getQuantity()*side);
+			currPosition.upDatePosition(data.getQuantity()*side);
 			positionMap.put(data.getBook(),currPosition);
+			onMessage(currPosition);
 		}
 		else {
 			Position<Equity> currPosition = new Position<Equity>();
 			currPosition.setProduct(currEquity);
-			HashMap<String,Long> pMap = new HashMap<String,Long>();
+			//HashMap<String,Long> pMap = new HashMap<String,Long>();
 			int side = data.getSide()==TradeSide.Buy?1:-1;
-			pMap.put(data.getBook(),data.getQuantity()*side);
-			currPosition.setPositions(pMap);
+			long position = data.getQuantity()*side;
+			
+			currPosition.setPositions(position);
 			positionMap.put(data.getBook(),currPosition);
+			onMessage(currPosition);
 		}
 	}
 
 	@Override
 	public Position<Equity> getData(String key) {
 		// TODO Auto-generated method stub
-		return null;
+		return positionMap.get(key);
 	}
 
 	@Override
@@ -63,20 +66,21 @@ public class EquityPositionService extends Service<String,Position<Equity>>{
 	@Override
 	void addListener(ServiceListener<Position<Equity>> listener) {
 		// TODO Auto-generated method stub
+		listeners.add(listener);
 		
 	}
 
 	@Override
 	ArrayList<ServiceListener<Position<Equity>>> getListeners() {
 		// TODO Auto-generated method stub
-		return null;
+		return listeners;
 	}
 
-	public HashMap<String,Position<Equity>> getTradeMap() {
+	public HashMap<String,Position<Equity>> getPositonMap() {
 		return positionMap;
 	}
 
-	public void setTradeMap(HashMap<String,Position<Equity>> positonMap) {
+	public void setPositionMap(HashMap<String,Position<Equity>> positonMap) {
 		this.positionMap = positonMap;
 	}
 	

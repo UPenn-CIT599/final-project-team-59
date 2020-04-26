@@ -1,4 +1,4 @@
-import java.util.HashMap;
+
 
 /**
  * Position class
@@ -8,17 +8,17 @@ import java.util.HashMap;
  */
 public class Position<T> {
 	private T product;
-	private HashMap<String,Long> positions = new HashMap<String,Long>(); //book position mapping
+	private long positions; //book position mapping
 
 	/**
 	 * update position map
 	 * @param book
 	 * @param newQuantity
 	 */
-	public void upDatePosition(String book, Long newQuantity) {
-		Long oldPosition = positions.get(book);
-		oldPosition += newQuantity;
-		positions.replace(book, oldPosition);
+	public void upDatePosition(long newQuantity) {
+		
+		positions += newQuantity;
+		
 	}
 	
 	public T getProduct() {
@@ -29,19 +29,13 @@ public class Position<T> {
 		this.product = product;
 	}
 
-	public HashMap<String, Long> getPositions() {
+	public long getPositions() {
 		return positions;
 	}
 
-	public void setPositions(HashMap<String, Long> positions) {
+	public void setPositions(long positions) {
 		this.positions = positions;
 	}
 
-	Long getAggregatePosition() {
-		long aggPosition = 0;
-		for(HashMap.Entry mapElement : positions.entrySet()) {
-			aggPosition += (long)mapElement.getValue();
-		}
-		return aggPosition;
-	}
+
 }

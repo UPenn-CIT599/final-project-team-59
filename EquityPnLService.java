@@ -48,8 +48,8 @@ public class EquityPnLService extends Service<String,PnL<Equity>>{
 
 	@Override
 	public PnL<Equity> getData(String key) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return pnlMap.get(key);
 	}
 
 	@Override
@@ -69,8 +69,8 @@ public class EquityPnLService extends Service<String,PnL<Equity>>{
 
 	@Override
 	ArrayList<ServiceListener<PnL<Equity>>> getListeners() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return listeners;
 	}
 
 	public HashMap<String,PnL<Equity>> getPnLMap() {

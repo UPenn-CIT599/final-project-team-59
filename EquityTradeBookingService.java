@@ -51,6 +51,7 @@ public class EquityTradeBookingService extends Service<String,Trade<Equity>>{
 		}
 		Trade<Equity> currTrade = new Trade<Equity>(data.getProduct(),Long.toString(currTradeId),
 				data.getPrice(),currBook,data.getQuantity(),TradeSide.values()[data.getSide().ordinal()]);
+		tradeMap.put(currBook, currTrade);
 		ind++;
 		onMessage(currTrade);
 	}

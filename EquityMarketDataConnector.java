@@ -23,6 +23,14 @@ public class EquityMarketDataConnector extends Connector<OrderBook<Equity>>{
 	private static EquityMarketDataConnector instance = null;
 	private EquityMarketDataConnector() {EMDService = EquityMarketDataService.getInstance();}
 	
+	public HashMap<String, OrderBook<Equity>> getOrderBooks() {
+		return orderBooks;
+	}
+
+	public void setOrderBooks(HashMap<String, OrderBook<Equity>> orderBooks) {
+		this.orderBooks = orderBooks;
+	}
+
 	/**
 	 * singleton pattern public getInstance methods
 	 * @return

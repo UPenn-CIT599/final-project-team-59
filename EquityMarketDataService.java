@@ -37,21 +37,7 @@ public class EquityMarketDataService extends Service<String,OrderBook<Equity>>{
 	}
 
 
-	
-	/**
-	 * grab the best bid order and best offer order
-	 * @param ticker
-	 * @return
-	 */
-	//TODO: write the unit test for getBestBidOffer function
-	BidOffer getBestBidOffer(String ticker) {
-		OrderBook<Equity> tickerOrderBook = orderBookMap.get(ticker);
-		Order bestBid = tickerOrderBook.getBidStack().poll();
-		Order bestOffer = tickerOrderBook.getOfferStack().poll();
-		BidOffer bestBidOffer = new BidOffer(bestBid,bestOffer);
-		return bestBidOffer;
-	}
-	
+
 	
 	/**
 	 * get the depth of the order book
@@ -83,7 +69,7 @@ public class EquityMarketDataService extends Service<String,OrderBook<Equity>>{
 		//System.out.println(ticker);
 		orderBookMap.put(ticker,orderBook);
 		//Test: print orderBook
-		orderBookMap.get(ticker).printOrderBook();
+		//orderBookMap.get(ticker).printOrderBook();
 		//System.out.println(orderBook.getOfferStack().get(0).getPrice());
 		for(ServiceListener<OrderBook<Equity>> listener:listeners) {
 			listener.processAdd(orderBook);
