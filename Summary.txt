@@ -1,0 +1,17 @@
+Project name: Equity Trading System
+
+
+Description: Develop an equity trading system reads market data, generates and executes orders, books and adds trades, assesses the risks, 
+and then publishes the data. The system consists of several service classes to fulfill different tasks during trading process, along with 
+service listeners which are listeners to event where data is added, updated or removed to services with which they interact, and connector 
+classes which flow market data into service through Service.onMessage() method or publish processed data through Connector.publish() method.
+
+Work Breakdown:
+•	Design concept proposal: led by Wenting, Sara helps.
+•	CRSs and work flow diagram: led by Sara, Wenting helps.
+•	Service classes coding: Wenting (60%), Sara (40%).
+•	Side classes coding: led by Wenting, Sara helps.
+•	Unit testing: done by Wenting (50%) and Sara (50%).
+•	documentation: led by Sara, Wenting helps.
+
+Link to GitHub repository: https://github.com/UPenn-CIT599/final-project-team-59.git
