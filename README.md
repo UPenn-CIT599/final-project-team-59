@@ -1,7 +1,7 @@
 # final-project-team-59
 final-project-team-59 created by GitHub Classroom
 
-How program functions:
+****How program functions:****
 <br />**Run main method in **TradingSystemRunner** class, the program automatically runs from reading in provided market data to publishing output.csv.
 
 •	Main service classes: 
@@ -12,10 +12,10 @@ How program functions:
 <br />****EquityPnLService**: assess the trade risks using Profit and Loss Explained statement, output PnL<Equity>. Options: if Book does not exist in pnlMap, generate new PnL<Equity> and add to pnlMap, else update PnL<Equity> through updating variable pnl. 
 
 •	Unit test cases
-<br />****Test cases 1-6**: test class name: EquityAlgoExecutionServiceTest. Class being tested: EquityAlgoExecutionService. Testing goals: if equal and non-equal prices and quantities of bid and offer orders can be properly processed
-<br />****Test cases 7-8**: test class name: EquityHistoricalDataConnectorTest. Class being tested: EquityHistoricalDataConnector. Testing goals: if a new csv output file can be successfully generated; if data can be added to existing csv file. **please NOTE: afer running this unit test, please delete generated output.csv file, otherwise, the output of running whole program will be updated to this csv file**
-<br />****Test cases 9-10**: test class name: EquityPnLServiceTest. Class being tested: EquityPnLService. Testing goals: if pnlMap can be properly updated when Book exists or does not exist in pnlMap.
-<br />****Test cases 11-16**: test class name: TestTradingSystem. Classes being tested: MarketDataConnector, MarketDataService, AlgoExecutionService, tradeBookingService, PositionService, PnLService and corresponding ServiceListners. Testing goals: test for system linkage, data processing and transmission across these classes. Items checked: i.e.,EquityPositionServiceListerner element, Book1 Position equals to 200, input OrderBook size equals to 3, Execution Order with ticker “APPL” price and quantity equal to 281.32 and 200 respectively, ticker of Trade<Equity> in Book1 equals to “APPL”, pnl value of PnL<Equity> in Book1 equals to 56264.
+<br />****Test cases 1-6**: test class name: **EquityAlgoExecutionServiceTest**. Class being tested: EquityAlgoExecutionService. Testing goals: if equal and non-equal prices and quantities of bid and offer orders can be properly processed
+<br />****Test cases 7-8**: test class name: **EquityHistoricalDataConnectorTest**. Class being tested: EquityHistoricalDataConnector. Testing goals: if a new csv output file can be successfully generated; if data can be added to existing csv file. **please NOTE: afer running this unit test, please delete generated output.csv file, otherwise, the output of running whole program will be updated to this csv file**
+<br />****Test cases 9-10**: test class name: **EquityPnLServiceTest**. Class being tested: EquityPnLService. Testing goals: if pnlMap can be properly updated when Book exists or does not exist in pnlMap.
+<br />****Test cases 11-16**: test class name: **TestTradingSystem**. Classes being tested: MarketDataConnector, MarketDataService, AlgoExecutionService, tradeBookingService, PositionService, PnLService and corresponding ServiceListners. Testing goals: test for system linkage, data processing and transmission across these classes. Items checked: i.e.,EquityPositionServiceListerner element, Book1 Position equals to 200, input OrderBook size equals to 3, Execution Order with ticker “APPL” price and quantity equal to 281.32 and 200 respectively, ticker of Trade<Equity> in Book1 equals to “APPL”, pnl value of PnL<Equity> in Book1 equals to 56264.
 
 
 •	Connector classes:
