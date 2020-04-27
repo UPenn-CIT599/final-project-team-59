@@ -2,7 +2,7 @@
 final-project-team-59 created by GitHub Classroom
 
 How program functions:
--Run main method in **TradingSystemRunner** class, the program automatically runs from reading in provided market data to publishing output.csv.
+Run main method in **TradingSystemRunner** class, the program automatically runs from reading in provided market data to publishing output.csv.
 
 •	Main service classes: 
 •	**EquityMarketDataService**: with imported data transmitted from EquityMarketDataConnector, create Order Books for different equity products 
